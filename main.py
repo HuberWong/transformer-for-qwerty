@@ -64,7 +64,7 @@ def config_json_to_qwerty():
     for _ in range(write_line_of_qwerty_dicts_configuration_file, len(lines) - keep_countdown_line_of_qwerty_dicts_configuration_file):
         lines.pop(write_line_of_qwerty_dicts_configuration_file)
 
-    configuration_template = f"  {{\n    id: '{str('eudic')}',\n     name: '{str('Eudic')}',\n     description: '{newest_csv_filename.replace('.csv', '')}',\n     category: '',\n     url: '',\n     length: {len(csv_list)},\n     language: 'en',\n   }},\n"
+    configuration_template = f"  {{\n    id: '{str('eudic')}',\n     name: '{str('Eudic')}',\n     description: '{newest_csv_filename.replace('.csv', '')}',\n     category: '',\n     url: './dicts/{newest_csv_filename.replace('csv', 'json')}',\n     length: {len(csv_list)},\n     language: 'en',\n   }},\n"
 
     lines.insert(write_line_of_qwerty_dicts_configuration_file, configuration_template)
     with open(qwerty_dicts_configuration_file, 'w') as f:
