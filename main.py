@@ -61,7 +61,8 @@ def config_json_to_qwerty():
     with open(qwerty_dicts_configuration_file, 'r') as f:
         for line in f:
             lines.append(line)
-    for _ in range(write_line_of_qwerty_dicts_configuration_file, len(lines) - keep_countdown_line_of_qwerty_dicts_configuration_file):
+    for _ in range(write_line_of_qwerty_dicts_configuration_file,
+                   len(lines) - keep_countdown_line_of_qwerty_dicts_configuration_file):
         lines.pop(write_line_of_qwerty_dicts_configuration_file)
 
     configuration_template = f"  {{\n    id: '{str('eudic')}',\n     name: '{str('Eudic')}',\n     description: '{newest_csv_filename.replace('.csv', '')}',\n     category: '',\n     url: './dicts/{newest_csv_filename.replace('csv', 'json')}',\n     length: {len(csv_list)},\n     language: 'en',\n   }},\n"
@@ -70,6 +71,17 @@ def config_json_to_qwerty():
     with open(qwerty_dicts_configuration_file, 'w') as f:
         f.write(''.join(lines))
 
+
+filenames: list[str] = get_csv_filenames('./csvfile_from_eudic/')
+newest_csv_filename = get_newest_csv_filename(filenames)
+write_to_csv_list(newest_csv_filename)
+save_csv_list_as_json(newest_csv_filename.replace('csv', 'json'))
+
+config_json_to_qwerty()
+
+os.system('cd ..')
+os.system('yarn install')
+os.system('yarn start --host 10086')
 
 if __name__ == '__main__':
     filenames: list[str] = get_csv_filenames('./csvfile_from_eudic/')
